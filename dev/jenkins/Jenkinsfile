@@ -11,6 +11,11 @@ pipeline {
         echo "new version: ${NEW_VERSION}"
       }
     }
+    stage('verify') {
+      steps {
+        echo "verifying the application ..."
+      }
+    }
     stage('build') {
       steps {
         echo 'building the application ...'
