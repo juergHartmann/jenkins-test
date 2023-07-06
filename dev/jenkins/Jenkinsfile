@@ -1,0 +1,45 @@
+pipeline {
+  agent any
+  environment {
+    NEW_VERSION = '1.2.0'
+  }
+  stages {
+    stage('show-env') {
+      steps {
+        echo 'variables:'
+        echo 'git branch: ' + GIT_BRANCH
+        echo "new version: ${NEW_VERSION}"
+      }
+    }
+    stage('build') {
+      steps {
+        echo 'building the application ...'
+      }
+    }
+    stage('test-master') {
+      when {
+        expression {
+          GIT_BRANCH == 'master'
+        }
+      }
+      steps {
+        echo 'testing the application ...'
+      }
+    }
+    stage('test-dev') {
+      when {
+        expression {
+          GIT_BRANCH == 'dev'
+        }
+      }
+      steps {
+        echo 'testing the application ...'
+      }
+    }
+    stage('deploy') {
+      steps {
+        echo 'deploying the application ...'
+      }
+    }
+  }
+}
